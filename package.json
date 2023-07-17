@@ -1,0 +1,11 @@
+{
+  "name": "@ajiu9/eslint-config-monorepo",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
+  "license": "MIT"
+}

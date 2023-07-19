@@ -1,10 +1,22 @@
 lockfileVersion: 5.4
 
-specifiers:
-  typescript: ^5.1.6
+importers:
 
-devDependencies:
-  typescript: 5.1.6
+  .:
+    specifiers:
+      '@ajiu9/eslint-config': workspace:*
+      eslint-plugin-aNine: link:./packages/eslint-plugin-aNine
+      typescript: ^5.1.6
+    devDependencies:
+      '@ajiu9/eslint-config': link:packages/eslint-config
+      eslint-plugin-aNine: link:packages/eslint-plugin-aNine
+      typescript: 5.1.6
+
+  packages/eslint-config:
+    specifiers: {}
+
+  packages/eslint-plugin-ajiu9:
+    specifiers: {}
 
 packages:
 

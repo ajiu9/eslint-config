@@ -1,6 +1,7 @@
 {
   "name": "@ajiu9/eslint-config-monorepo",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +10,8 @@
   "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^5.1.6"
+    "@ajiu9/eslint-config": "workspace:*",
+    "typescript": "^5.1.6",
+    "eslint-plugin-aNine": "link:./packages/eslint-plugin-aNine"
   }
 }

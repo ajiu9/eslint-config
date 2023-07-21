@@ -1,4 +1,6 @@
 module.exports = {
-    extends: [],
+    extends: [
+      '@ajiu9/eslint-config-vue'
+    ],
   }
   

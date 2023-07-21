@@ -1,13 +1,13 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
-      "target": "es2020",
-      "module": "es2020",
-      "moduleResolution": "node"
-    },
-    "include": [
-      "./packages/**/*.ts"
-    ],
-    "exclude": []
-  }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es2020",
+    "module": "es2020",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "./packages/**/*.ts"
+  ],
+  "exclude": ["./fixtures/**/*.*"]
+}
   

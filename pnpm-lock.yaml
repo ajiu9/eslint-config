@@ -5,12 +5,18 @@ importers:
   .:
     specifiers:
       '@ajiu9/eslint-config': workspace:*
-      eslint-plugin-aNine: link:./packages/eslint-plugin-aNine
+      eslint-plugin-ajiu9: link:./packages/eslint-plugin-ajiu9
       typescript: ^5.1.6
     devDependencies:
       '@ajiu9/eslint-config': link:packages/eslint-config
-      eslint-plugin-aNine: link:packages/eslint-plugin-aNine
+      eslint-plugin-ajiu9: link:packages/eslint-plugin-ajiu9
       typescript: 5.1.6
+
+  fixtures/example:
+    specifiers:
+      '@ajiu9/eslint-config': workspace:1.0.0
+    devDependencies:
+      '@ajiu9/eslint-config': link:../../packages/eslint-config
 
   packages/eslint-config:
     specifiers: {}

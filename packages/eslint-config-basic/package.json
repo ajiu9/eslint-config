@@ -1,0 +1,22 @@
+{
+  "name": "@ajiu9/eslint-config-basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "files": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "eslint": ">=7.4.0"
+  },
+  "dependencies": {
+    "eslint-plugin-ajiu9": "workspace:*"
+  },
+  "devDependencies": {
+    "eslint": "^8.44.0"
+  }
+  
+}

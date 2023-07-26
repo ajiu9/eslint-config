@@ -1,6 +1,6 @@
 {
   "name": "@ajiu9/eslint-config-vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "author": "",
@@ -15,10 +15,8 @@
   "dependencies": {
     "@ajiu9/eslint-config-basic": "workspace:*",
     "@ajiu9/eslint-config-ts": "workspace:*"
-
   },
   "devDependencies": {
     "eslint": "^8.44.0"
   }
-  
 }

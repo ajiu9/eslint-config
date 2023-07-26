@@ -1,6 +1,6 @@
 {
   "name": "@ajiu9/eslint-config-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "author": "",
@@ -19,5 +19,4 @@
   "devDependencies": {
     "eslint": "^8.44.0"
   }
-  
 }

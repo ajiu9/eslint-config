@@ -10,7 +10,7 @@
     "lint": "pnpm -r run stub && eslint .",
     "build": "pnpm -r run build",
     "prepare": "pnpm -r run stub",
-    "release": "bumpp -r && pnpm -r publish"
+    "release": "bumpp -r && pnpm -r publish --access public"
   },
   "devDependencies": {
     "@ajiu9/eslint-config": "workspace:*",

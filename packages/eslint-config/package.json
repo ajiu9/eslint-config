@@ -1,6 +1,6 @@
 {
   "name": "@ajiu9/eslint-config",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.1-beta.1",
   "description": "Ajiu9's ESLint config",
   "main": "index.js",
   "author": "",

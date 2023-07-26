@@ -4,14 +4,19 @@
   "private": true,
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",
+  "scripts": {
+    "lint": "pnpm -r run stub && eslint .",
+    "build": "pnpm -r run build",
+    "prepare": "pnpm -r run stub",
+    "release": "bumpp -r && pnpm -r publish"
+  },
   "devDependencies": {
     "@ajiu9/eslint-config": "workspace:*",
-    "typescript": "^5.1.6",
-    "eslint-plugin-ajiu9": "link:./packages/eslint-plugin-ajiu9"
+    "bumpp": "^9.1.1",
+    "eslint-plugin-ajiu9": "link:./packages/eslint-plugin-ajiu9",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.1.6"
   }
 }

@@ -3,9 +3,12 @@
   "version": "1.0.1-beta.2",
   "description": "",
   "main": "index.js",
-  "author": "",
+  "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",
-  "keywords": [],
+  "homepage": "https://github.com/ajiu9/eslint-config",
+  "keywords": [
+    "eslint-config"
+  ],
   "files": [
     "index.js"
   ],
@@ -14,7 +17,10 @@
     "typescript": ">=3.9"
   },
   "dependencies": {
-    "@ajiu9/eslint-config-basic": "workspace:*"
+    "@ajiu9/eslint-config-basic": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "eslint-plugin-jest": "^27.2.2"
   },
   "devDependencies": {
     "eslint": "^8.44.0"

@@ -25,6 +25,7 @@ pnpm add -D eslint @ajiu9/eslint-config
 {
   "extends": "@ajiu9"
 }
+```
 
 > You don't need `.eslintignore` normally as it has been provided by the preset.
 

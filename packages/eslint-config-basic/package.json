@@ -2,11 +2,11 @@
   "name": "@ajiu9/eslint-config-basic",
   "version": "1.0.1-beta.2",
   "description": "",
-  "main": "index.js",
   "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",
   "homepage": "https://github.com/ajiu9/eslint-config",
   "keywords": [],
+  "main": "index.js",
   "files": [
     "*.js"
   ],

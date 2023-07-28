@@ -1,7 +1,3 @@
 {
-    "extends": "@ajiu9",
-    "plugins": [
-      "ajiu9"
-    ]
-  }
-  
+  "extends": "@ajiu9"
+}

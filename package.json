@@ -3,13 +3,12 @@
   "version": "1.0.1-beta.2",
   "private": true,
   "description": "",
-  "main": "index.js",
   "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
-    "lint": "pnpm -r run stub && eslint .",
+    "lint": "eslint .",
     "build": "pnpm -r run build",
-    "prepare": "pnpm -r run stub",
     "release": "bumpp -r && pnpm -r publish --access public"
   },
   "devDependencies": {

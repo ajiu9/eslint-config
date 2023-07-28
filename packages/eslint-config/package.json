@@ -2,10 +2,10 @@
   "name": "@ajiu9/eslint-config",
   "version": "1.0.1-beta.2",
   "description": "Ajiu9's ESLint config",
-  "main": "index.js",
   "author": "",
   "license": "MIT",
   "keywords": [],
+  "main": "index.js",
   "files": [
     "index.js"
   ],

@@ -335,7 +335,7 @@ module.exports = {
     'max-statements-per-line': ['error', { max: 1 }],
 
     // node
-    'n/prefer-global/process': ['error', 'never'],
+    'n/prefer-global/process': ['error', 'always'],
     'n/prefer-global/buffer': ['error', 'never'],
     'n/no-callback-literal': 'off',
 

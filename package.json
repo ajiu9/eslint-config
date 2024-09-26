@@ -1,13 +1,28 @@
 {
   "name": "@ajiu9/eslint-config-monorepo",
-  "version": "1.0.3",
-  "private": true,
-  "description": "",
+  "type": "module",
+  "version": "2.0.0",
+  "description": "ajiu9's Eslint config",
   "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",
-  "main": "index.js",
+  "keywords": [
+    "eslint-config"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": "./bin/index.js",
+  "files": [
+    "bin",
+    "dist"
+  ],
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint --flag unstable_ts_config .",
     "build": "pnpm -r run build",
     "release": "bumpp -r && pnpm -r publish --access public"
   },
@@ -17,5 +32,11 @@
     "eslint-plugin-ajiu9": "link:./packages/eslint-plugin-ajiu9",
     "rimraf": "^5.0.1",
     "typescript": "^5.1.6"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --flag unstable_ts_config --fix"
   }
 }

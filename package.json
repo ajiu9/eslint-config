@@ -22,12 +22,14 @@
     "dist"
   ],
   "scripts": {
+    "dev": "npx @eslint/config-inspector --config eslint.config.ts",
     "lint": "eslint --flag unstable_ts_config .",
     "build": "pnpm -r run build",
     "release": "bumpp -r && pnpm -r publish --access public"
   },
   "devDependencies": {
     "@ajiu9/eslint-config": "workspace:*",
+    "@eslint/config-inspector": "^0.5.4",
     "bumpp": "^9.1.1",
     "eslint": "^9.11.1",
     "eslint-plugin-ajiu9": "link:./packages/eslint-plugin-ajiu9",

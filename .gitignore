@@ -13,5 +13,7 @@ node_modules/
 # generate
 dist
 
+_fixtures
+
 # Runtime data
 # pnpm-lock.yaml

@@ -11,13 +11,10 @@ beforeAll(async () => {
 //   await fs.rm('_fixtures', { recursive: true, force: true })
 // })
 
-runWithConfig('js', {
-  typescript: false,
-  vue: false,
-})
+runWithConfig('js')
 
 
-function runWithConfig(name: string, configs, ...items) {
+function runWithConfig(name: string) {
   console.log('runWithConfig', name)
   it.concurrent(name, async ({ expect }) => {
     const from = resolve('fixtures/input')
@@ -33,15 +30,13 @@ function runWithConfig(name: string, configs, ...items) {
     // @eslint-disable
     import ajiu9 from '@ajiu9/eslint-config'
     
-    export default ajiu9(
-      ${JSON.stringify(configs)},
-      ...${JSON.stringify(items) ?? []},
-    )
-    console.log(ajiu9(
-      ${JSON.stringify(configs)},
-      ...${JSON.stringify(items) ?? []},
-    ))
+    export default ajiu9()
+
       `)
+      // console.log(ajiu9(
+      //   ${JSON.stringify(configs)},
+      //   ...${JSON.stringify(items) ?? []},
+      // ))
 
     await execa('npx', ['eslint', '.', '--fix'], {
       cwd: target,

@@ -11,6 +11,7 @@ export async function comments(): Promise<any> {
       'eslint-comments/no-duplicate-disable': 'error',
       'eslint-comments/no-unlimited-disable': 'error',
       'eslint-comments/no-unused-enable': 'error',
+      'no-console': ['error', { allow: ['warn', 'error'] }],
     },
   }
  ]

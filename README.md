@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/@ajiu9/eslint-config?color=a1b858&label=)](https://npmjs.com/package/@ajiu9/eslint-config)
 
-Forked from [`@antfu`](https://github.com/antfu/eslint-config)
 
 - Single quotes, no semi
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)

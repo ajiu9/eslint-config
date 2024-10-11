@@ -2,11 +2,11 @@ import type { OptionsConfig } from "./types";
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
 
 
-import { comments } from "./configs";
+import { comments, javascript } from "./configs";
 export async function ajiu9(options: OptionsConfig) {
   const configs = []
 
-  configs.push(comments())
+  configs.push(comments(), javascript())
 
   let composer = new FlatConfigComposer()
 

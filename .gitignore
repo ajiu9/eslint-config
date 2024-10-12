@@ -17,3 +17,4 @@ _fixtures
 
 # Runtime data
 # pnpm-lock.yaml
+eslint.json

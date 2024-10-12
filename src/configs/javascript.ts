@@ -228,23 +228,8 @@ export function javascript(): any {
         'wrap-iife': ['error', 'any', { functionPrototypeMethods: true }],
         'yield-star-spacing': ['error', 'both'],
         'yoda': ['error', 'never'],
-    
-        'import/export': 'error',
-        'import/first': 'error',
-        'import/no-absolute-path': ['error', { esmodule: true, commonjs: true, amd: false }],
-        'import/no-duplicates': 'error',
-        'import/no-named-default': 'error',
-        'import/no-webpack-loader-syntax': 'error',
-    
-        'n/handle-callback-err': ['error', '^(err|error)$'],
-        'n/no-callback-literal': 'error',
-        'n/no-deprecated-api': 'error',
-        'n/no-exports-assign': 'error',
-        'n/no-new-require': 'error',
-        'n/no-path-concat': 'error',
-        'n/process-exit-as-throw': 'error',
-    
-        'promise/param-names': 'error',
+        
+        // 'promise/param-names': 'error',
       }
     }
   ]

@@ -10,6 +10,11 @@ export type TypedFlatConfigItem = Omit<Linter.Config<Linter.RulesRecord>, 'plugi
 export interface OptionsConfig {
   gitignore?: boolean | FlatGitignoreOptions
   stylistic?: boolean | StylisticConfig
+  /**
+ * Control to disable some rules in editors.
+ * @default auto-detect based on the process.env
+ */
+  isInEditor?: boolean
 }
 
 export interface OptionsStylistic {
@@ -18,4 +23,8 @@ export interface OptionsStylistic {
 
 export interface StylisticConfig
   extends Pick<StylisticCustomizeOptions, 'indent' | 'quotes' | 'jsx' | 'semi'> {
+}
+
+export interface OptionsIsInEditor {
+  isInEditor?: boolean
 }

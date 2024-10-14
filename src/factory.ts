@@ -1,5 +1,6 @@
 import type { OptionsConfig, TypedFlatConfigItem } from "./types";
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
+import { isInEditorEnv } from './utils'
 
 
 import { comments, javascript, ignores, imports, node } from "./configs";
@@ -18,6 +19,14 @@ export const defaultPluginRenaming = {
   // 'yml': 'yaml',
 }
 export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},) {
+  let isInEditor = options.isInEditor
+  if (isInEditor == null) {
+    isInEditor = isInEditorEnv()
+    if (isInEditor)
+      // eslint-disable-next-line no-console
+      console.log('[@ajiu9/eslint-config] Detected running in editor, some rules are disabled.')
+  }
+  
   const stylisticOptions = options.stylistic === false
   ? false
   : typeof options.stylistic === 'object'
@@ -31,7 +40,7 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
     ignores(options.ignores),
     comments(), 
     node(),
-    javascript(),
+    javascript({ isInEditor }),
     imports({stylistic:stylisticOptions})
   )
 

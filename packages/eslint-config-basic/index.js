@@ -391,5 +391,3 @@ module.exports = {
     'yml/no-empty-document': 'off',
   },
 }
-
-var 2;

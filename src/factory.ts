@@ -1,9 +1,9 @@
-import type { OptionsConfig, TypedFlatConfigItem } from "./types";
+import type { OptionsConfig, TypedFlatConfigItem, Awaitable } from "./types";
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import { isInEditorEnv } from './utils'
 
 
-import { comments, javascript, ignores, imports, node } from "./configs";
+import { comments, javascript, ignores, imports, node, stylistic } from "./configs";
 
 export const defaultPluginRenaming = {
   // '@eslint-react': 'react',
@@ -19,6 +19,10 @@ export const defaultPluginRenaming = {
   // 'yml': 'yaml',
 }
 export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},) {
+  const {
+    jsx: enableJsx = true,
+  } = options
+  
   let isInEditor = options.isInEditor
   if (isInEditor == null) {
     isInEditor = isInEditorEnv()
@@ -33,7 +37,10 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
     ? options.stylistic
     : {}
     
-  const configs = []
+    if (stylisticOptions && !('jsx' in stylisticOptions))
+      stylisticOptions.jsx = enableJsx
+    
+  const configs: Awaitable<TypedFlatConfigItem[]>[] = []
 
   // Base configs
   configs.push(
@@ -43,6 +50,12 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
     javascript({ isInEditor }),
     imports({stylistic:stylisticOptions})
   )
+
+  if (stylisticOptions) {
+    configs.push(stylistic({
+      ...stylisticOptions,
+    }))
+  }
 
   let composer = new FlatConfigComposer()
 

@@ -1,3 +1,5 @@
+import type { OptionsConfig } from '../src/types'
+
 import { afterAll, beforeAll, it } from 'vitest'
 import fs from 'fs-extra'
 import { join, resolve } from 'node:path'
@@ -11,11 +13,13 @@ beforeAll(async () => {
 //   await fs.rm('_fixtures', { recursive: true, force: true })
 // })
 
-runWithConfig('js')
+runWithConfig('js', {})
+runWithConfig('no-style', {
+  stylistic: false,
+})
 
 
-function runWithConfig(name: string) {
-  console.log('runWithConfig', name)
+function runWithConfig(name: string, configs: OptionsConfig) {
   it.concurrent(name, async ({ expect }) => {
     const from = resolve('fixtures/input')
     const target = resolve('_fixtures', name)
@@ -30,7 +34,7 @@ function runWithConfig(name: string) {
     // @eslint-disable
     import ajiu9 from '@ajiu9/eslint-config'
     
-    export default ajiu9()
+    export default ajiu9(${JSON.stringify(configs)})
 
       `)
       // console.log(ajiu9(

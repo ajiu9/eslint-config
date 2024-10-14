@@ -51,6 +51,8 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
     imports({stylistic:stylisticOptions})
   )
 
+  console.log('stylisticOptions: ', stylisticOptions)
+
   if (stylisticOptions) {
     configs.push(stylistic({
       ...stylisticOptions,

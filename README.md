@@ -4,12 +4,15 @@
 
 
 - Single quotes, no semi
+- [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
 - Designed to work with TypeScript, Vue out-of-box
 - Lint also for json, yaml, markdown
 - Sorted imports, dangling commas
 - Reasonable defaults, best practices, only one-line of config
 - **Style principle**: Minimal for reading, stable for diff
+- Respects .gitignore by default
+- Requires ESLint v9.5.0+-
 
 #Usage
 

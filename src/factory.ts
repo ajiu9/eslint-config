@@ -1,4 +1,5 @@
 import type { OptionsConfig, TypedFlatConfigItem, Awaitable } from "./types";
+import type { Linter } from 'eslint'
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import { isInEditorEnv } from './utils'
 
@@ -18,7 +19,8 @@ export const defaultPluginRenaming = {
   // 'vitest': 'test',
   // 'yml': 'yaml',
 }
-export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},) {
+export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},  
+  ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]) {
   const {
     jsx: enableJsx = true,
   } = options
@@ -61,7 +63,7 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
 
   let composer = new FlatConfigComposer()
 
-  composer = composer.append(...configs).renamePlugins(defaultPluginRenaming)
+  composer = composer.append(...configs,...userConfigs as any,).renamePlugins(defaultPluginRenaming)
   
   
 

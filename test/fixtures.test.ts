@@ -1,4 +1,4 @@
-import type { OptionsConfig } from '../src/types'
+import type { OptionsConfig, TypedFlatConfigItem } from '../src/types'
 
 import { afterAll, beforeAll, it } from 'vitest'
 import fs from 'fs-extra'
@@ -13,13 +13,31 @@ beforeAll(async () => {
 //   await fs.rm('_fixtures', { recursive: true, force: true })
 // })
 
+runWithConfig('all', {})
+
 runWithConfig('js', {})
+
 runWithConfig('no-style', {
   stylistic: false,
 })
 
+runWithConfig(
+  'tab-double-quotes',
+  {
+    stylistic: {
+      indent: 'tab',
+      quotes: 'double',
+    },
+  },
+  {
+    rules: {
+      'style/no-mixed-spaces-and-tabs': 'off',
+    },
+  },
+)
 
-function runWithConfig(name: string, configs: OptionsConfig) {
+
+function runWithConfig(name: string, configs: OptionsConfig, ...items: TypedFlatConfigItem[]) {
   it.concurrent(name, async ({ expect }) => {
     const from = resolve('fixtures/input')
     const target = resolve('_fixtures', name)
@@ -34,7 +52,10 @@ function runWithConfig(name: string, configs: OptionsConfig) {
     // @eslint-disable
     import ajiu9 from '@ajiu9/eslint-config'
     
-    export default ajiu9(${JSON.stringify(configs)})
+    export default ajiu9(
+			${JSON.stringify(configs)},
+			 ...${JSON.stringify(items) ?? []},
+			 )
 
       `)
       // console.log(ajiu9(

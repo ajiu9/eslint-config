@@ -43,23 +43,17 @@ export async function stylistic(
     {
       name: 'ajiu9/stylistic/rules',
       plugins: {
-        // antfu: pluginAntfu,
         style: pluginStylistic,
       },
       rules: {
         ...config.rules,
-
-        // 'antfu/consistent-chaining': 'error',
-        // 'antfu/consistent-list-newline': 'error',
 
         ...(lessOpinionated
           ? {
               curly: ['error', 'all'],
             }
           : {
-              // 'antfu/curly': 'error',
-              // 'antfu/if-newline': 'error',
-              // 'antfu/top-level-function': 'error',
+              
             }
         ),
 

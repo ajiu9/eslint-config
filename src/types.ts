@@ -38,3 +38,7 @@ export interface StylisticConfig
 export interface OptionsIsInEditor {
   isInEditor?: boolean
 }
+
+export interface OptionsOverrides {
+  overrides?: TypedFlatConfigItem['rules']
+}

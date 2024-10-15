@@ -1,10 +1,10 @@
-import type { OptionsConfig, TypedFlatConfigItem, Awaitable } from "./types";
+import type { OptionsConfig, TypedFlatConfigItem, Awaitable } from './types'
 import type { Linter } from 'eslint'
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import { isInEditorEnv } from './utils'
+import { isPackageExists } from 'local-pkg'
 
-
-import { comments, javascript, ignores, imports, node, stylistic } from "./configs";
+import { comments, javascript, ignores, imports, node, stylistic, typescript } from './configs'
 
 export const defaultPluginRenaming = {
   // '@eslint-react': 'react',
@@ -13,18 +13,19 @@ export const defaultPluginRenaming = {
   // '@eslint-react/naming-convention': 'react-naming-convention',
 
   '@stylistic': 'style',
-  // '@typescript-eslint': 'ts',
+  '@typescript-eslint': 'ts',
   'import-x': 'import',
   'n': 'node',
   // 'vitest': 'test',
   // 'yml': 'yaml',
 }
-export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},  
+export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]) {
   const {
     jsx: enableJsx = true,
+    typescript: enableTypeScript = isPackageExists('typescript'),
   } = options
-  
+
   let isInEditor = options.isInEditor
   if (isInEditor == null) {
     isInEditor = isInEditorEnv()
@@ -32,26 +33,35 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       // eslint-disable-next-line no-console
       console.log('[@ajiu9/eslint-config] Detected running in editor, some rules are disabled.')
   }
-  
+
   const stylisticOptions = options.stylistic === false
-  ? false
-  : typeof options.stylistic === 'object'
-    ? options.stylistic
-    : {}
-    
-    if (stylisticOptions && !('jsx' in stylisticOptions))
-      stylisticOptions.jsx = enableJsx
-    
+    ? false
+    : typeof options.stylistic === 'object'
+      ? options.stylistic
+      : {}
+
+  if (stylisticOptions && !('jsx' in stylisticOptions))
+    stylisticOptions.jsx = enableJsx
+
   const configs: Awaitable<TypedFlatConfigItem[]>[] = []
+
+  const typescriptOptions = resolveSubOptions(options, 'typescript') as object
 
   // Base configs
   configs.push(
     ignores(options.ignores),
-    comments(), 
+    comments(),
     node(),
     javascript({ isInEditor }),
-    imports({stylistic:stylisticOptions})
+    imports({ stylistic: stylisticOptions }),
   )
+
+  if (enableTypeScript) {
+    configs.push(typescript({
+      ...typescriptOptions,
+      overrides: getOverrides(options, 'typescript'),
+    }))
+  }
 
   if (stylisticOptions) {
     configs.push(stylistic({
@@ -61,10 +71,28 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
 
   let composer = new FlatConfigComposer()
 
-  composer = composer.append(...configs,...userConfigs as any,).renamePlugins(defaultPluginRenaming)
-  
-  
+  composer = composer.append(...configs, ...userConfigs as any).renamePlugins(defaultPluginRenaming)
 
   return composer
 }
 
+export type ResolvedOptions<T> = T extends boolean
+  ? never
+  : NonNullable<T>
+
+export function resolveSubOptions<K extends keyof OptionsConfig>(options: OptionsConfig, key: K): ResolvedOptions<OptionsConfig[K]> {
+  return typeof options[key] === 'boolean' ? {} as any : options[key] || {}
+}
+
+export function getOverrides<K extends keyof OptionsConfig>(
+  options: OptionsConfig,
+  key: K,
+): Partial<Linter.RulesRecord> {
+  const sub = resolveSubOptions(options, key)
+  return {
+    ...(options.overrides as any)?.[key],
+    ...'overrides' in sub
+      ? (sub.overrides as Record<string, unknown>)
+      : {},
+  }
+}

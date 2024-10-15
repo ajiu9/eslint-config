@@ -1,5 +1,4 @@
 import { ajiu9 } from './src'
-import fs from 'node:fs/promises'
 
 // export default ajiu9({},{
 //   ignores: [
@@ -15,11 +14,14 @@ import fs from 'node:fs/promises'
 // }
 // )
 
-
-export default ajiu9({})
+export default ajiu9({}, {
+  ignores: [
+    'fixtures',
+    '_fixtures',
+  ],
+})
 
 // const configs = await ajiu9({})
-
 
 // var a;
 

@@ -1,8 +1,8 @@
-
 import globals from 'globals'
 import type { OptionsIsInEditor } from '../types'
-import {pluginUnusedImports} from '../plugins'
-export function javascript(options: OptionsIsInEditor  ): any {
+import { pluginUnusedImports } from '../plugins'
+
+export function javascript(options: OptionsIsInEditor): any {
   const { isInEditor } = options
   return [
     {
@@ -33,7 +33,7 @@ export function javascript(options: OptionsIsInEditor  ): any {
     {
       name: 'ajiu9/javascript/rules',
       plugins: {
-        'unused-imports': pluginUnusedImports
+        'unused-imports': pluginUnusedImports,
       },
       rules: {
         'accessor-pairs': ['error', { enforceForClassMembers: true, setWithoutGet: true }],
@@ -43,7 +43,7 @@ export function javascript(options: OptionsIsInEditor  ): any {
         'default-case-last': 'error',
         'dot-notation': ['error', { allowKeywords: true }],
         'eqeqeq': ['error', 'smart'],
-        
+
         'new-cap': ['error', { capIsNew: false, newIsCap: true, properties: true }],
         'no-alert': 'error',
         'no-array-constructor': 'error',
@@ -196,7 +196,7 @@ export function javascript(options: OptionsIsInEditor  ): any {
         'valid-typeof': ['error', { requireStringLiterals: true }],
         'vars-on-top': 'error',
         'yoda': ['error', 'never'],
-      }
-    }
+      },
+    },
   ]
 }

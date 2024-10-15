@@ -53,7 +53,7 @@ export async function stylistic(
               curly: ['error', 'all'],
             }
           : {
-              
+
             }
         ),
 

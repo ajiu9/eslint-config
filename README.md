@@ -115,3 +115,69 @@ and then
 ```bash
 npm i -D lint-staged simple-git-hooks
 ```
+
+## Customization
+
+
+Normally you only need to import the `ajiu9` preset:
+
+```js
+// eslint.config.js
+import ajiu9 from '@ajiu9/eslint-config'
+
+export default ajiu9()
+```
+
+And that's it! Or you can configure each integration individually, for example:
+
+```js
+// eslint.config.js
+import ajiu9 from '@ajiu9/eslint-config'
+
+export default ajiu9({
+// Type of the project. 'lib' for libraries, the default is 'app'
+  type: 'lib',
+
+  // Enable stylistic formatting rules
+  // stylistic: true,
+
+  // Or customize the stylistic rules
+  stylistic: {
+    indent: 2, // 4, or 'tab'
+    quotes: 'single', // or 'double'
+  },
+
+  // TypeScript and Vue are autodetected, you can also explicitly enable them:
+  typescript: true,
+  vue: true,
+
+  // `.eslintignore` is no longer supported in Flat config, use `ignores` instead
+  ignores: [
+    '**/fixtures',
+    // ...globs
+  ]
+})
+```
+
+The `ajiu9` factory function also accepts any number of arbitrary custom config overrides:
+
+```js
+// eslint.config.js
+import ajiu9 from '@ajiu9/eslint-config'
+
+export default ajiu9(
+  {
+    // Configures for ajiu9's config
+  },
+
+  // From the second arguments they are ESLint Flat Configs
+  // you can have multiple configs
+  {
+    files: ['**/*.ts'],
+    rules: {},
+  },
+  {
+    rules: {},
+  },
+)
+```

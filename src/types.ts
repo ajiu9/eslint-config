@@ -9,7 +9,7 @@ export type TypedFlatConfigItem = Omit<Linter.Config<Linter.RulesRecord>, 'plugi
   plugins?: Record<string, any>
 }
 
-export interface OptionsConfig {
+export interface OptionsConfig extends OptionsComponentExts {
   gitignore?: boolean | FlatGitignoreOptions
   stylistic?: boolean | StylisticConfig
   /**
@@ -46,6 +46,13 @@ export interface OptionsConfig {
     javascript?: TypedFlatConfigItem['rules']
     typescript?: TypedFlatConfigItem['rules']
   }
+
+  /**
+   * Enable linter for **code snippets** in markdown.
+   *
+   * For formatting Markdown content, enable also `formatters.markdown
+   */
+  markdown?: boolean | OptionsOverrides
 }
 
 export interface OptionsStylistic {

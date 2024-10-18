@@ -10,7 +10,6 @@ export const StylisticConfigDefaults: StylisticConfig = {
 }
 
 export interface StylisticOptions extends StylisticConfig, OptionsOverrides {
-  lessOpinionated?: boolean
 }
 
 export async function stylistic(
@@ -19,7 +18,6 @@ export async function stylistic(
   const {
     indent,
     jsx,
-    lessOpinionated = false,
     overrides = {},
     quotes,
     semi,
@@ -47,16 +45,7 @@ export async function stylistic(
       },
       rules: {
         ...config.rules,
-
-        ...(lessOpinionated
-          ? {
-              curly: ['error', 'all'],
-            }
-          : {
-
-            }
-        ),
-
+        curly: ['error', 'all'],
         ...overrides,
       },
     },

@@ -4,7 +4,7 @@ import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import { isInEditorEnv } from './utils'
 import { isPackageExists } from 'local-pkg'
 
-import { comments, javascript, ignores, imports, node, stylistic, typescript } from './configs'
+import { comments, javascript, ignores, imports, node, stylistic, typescript, markdown } from './configs'
 
 export const defaultPluginRenaming = {
   // '@eslint-react': 'react',
@@ -24,14 +24,16 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
   const {
     jsx: enableJsx = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
+    componentExts = [],
   } = options
 
   let isInEditor = options.isInEditor
   if (isInEditor == null) {
     isInEditor = isInEditorEnv()
-    if (isInEditor)
+    if (isInEditor) {
       // eslint-disable-next-line no-console
       console.log('[@ajiu9/eslint-config] Detected running in editor, some rules are disabled.')
+    }
   }
 
   const stylisticOptions = options.stylistic === false
@@ -40,8 +42,9 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       ? options.stylistic
       : {}
 
-  if (stylisticOptions && !('jsx' in stylisticOptions))
+  if (stylisticOptions && !('jsx' in stylisticOptions)) {
     stylisticOptions.jsx = enableJsx
+  }
 
   const configs: Awaitable<TypedFlatConfigItem[]>[] = []
 
@@ -66,6 +69,13 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
   if (stylisticOptions) {
     configs.push(stylistic({
       ...stylisticOptions,
+    }))
+  }
+
+  if (options.markdown ?? true) {
+    configs.push(markdown({
+      componentExts,
+      overrides: getOverrides(options, 'markdown'),
     }))
   }
 

@@ -1,6 +1,33 @@
 import type { Awaitable } from './types'
 import process from 'node:process'
 import type { Linter } from 'eslint'
+import { isPackageExists } from 'local-pkg'
+import { fileURLToPath } from 'node:url'
+
+const isCwdInScope = isPackageExists('@ajiu9/eslint-config')
+
+const scopeUrl = fileURLToPath(new URL('.', import.meta.url))
+
+export const parserPlain = {
+  meta: {
+    name: 'parser-plain',
+  },
+  parseForESLint: (code: string) => ({
+    ast: {
+      body: [],
+      comments: [],
+      loc: { end: code.length, start: 0 },
+      range: [0, code.length],
+      tokens: [],
+      type: 'Program',
+    },
+    scopeManager: null,
+    services: { isPlain: true },
+    visitorKeys: {
+      Program: [],
+    },
+  }),
+}
 
 export function isInEditorEnv(): boolean {
   if (process.env.CI) {
@@ -16,6 +43,22 @@ export function isInEditorEnv(): boolean {
     || process.env.VIM
     || process.env.NVIM
   )
+}
+
+export function isPackageInScope(name: string): boolean {
+  return isPackageExists(name, { paths: [scopeUrl] })
+}
+
+export async function ensurePackages(packages: (string | undefined)[]): Promise<void> {
+  if (process.env.CI || process.stdout.isTTY === false || isCwdInScope === false) { return }
+
+  const nonExistingPackages = packages.filter(i => i && !isPackageInScope(i)) as string[]
+  if (nonExistingPackages.length === 0) { return }
+
+  const p = await import('@clack/prompts')
+  const result = await p.confirm({
+    message: `${nonExistingPackages.length === 1 ? 'Package is' : 'Packages are'} required for this config: ${nonExistingPackages.join(', ')}. Do you want to install them?`,
+  })
 }
 
 /**

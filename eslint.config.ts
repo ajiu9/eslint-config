@@ -18,6 +18,7 @@ export default ajiu9({}, {
   ignores: [
     'fixtures',
     '_fixtures',
+    'packages',
   ],
 })
 

@@ -1,6 +1,6 @@
 import type { TypedFlatConfigItem, OptionsFiles, OptionsOverrides, OptionsComponentExts } from '../types'
 
-import { interopDefault, mergeProcessors, processorPassThrough } from '../utils'
+import { interopDefault, mergeProcessors, processorPassThrough, parserPlain } from '../utils'
 import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from '../globs'
 
 export async function markdown(options: OptionsFiles & OptionsComponentExts & OptionsOverrides): Promise<TypedFlatConfigItem[]> {
@@ -24,12 +24,19 @@ export async function markdown(options: OptionsFiles & OptionsComponentExts & Op
       ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
       name: 'ajiu9/markdown/processor',
       // `eslint-plugin-markdown` only creates virtual files for code blocks,
-      // but not the markdown file itself. We use `eslint-merge-processors` to
+      // but not the markdown file itself. We use `merge-processors` to
       // add a pass-through processor for the markdown file itself.
       processor: mergeProcessors([
         markdown.processors!.markdown,
         processorPassThrough,
       ]),
+    },
+    {
+      files,
+      languageOptions: {
+        parser: parserPlain,
+      },
+      name: 'ajiu9/markdown/parser',
     },
     {
       files: [

@@ -2,11 +2,61 @@ import type { StylisticCustomizeOptions } from '@stylistic/eslint-plugin'
 import type { Linter } from 'eslint'
 import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore'
 import type { ParserOptions } from '@typescript-eslint/parser'
+import type { VendoredPrettierOptions } from './vender/prettier-types'
 
 export type Awaitable<T> = T | Promise<T>
 
 export type TypedFlatConfigItem = Omit<Linter.Config<Linter.RulesRecord>, 'plugins'> & {
   plugins?: Record<string, any>
+}
+
+/**
+ * Enable formatting support for Markdown.
+ *
+ * When set to `true`, it will use Prettier.
+ */
+export interface OptionsFormatters {
+  /**
+   * Enable formatting support for CSS, Less, Sass, and SCSS.
+   *
+   * Currently only support Prettier.
+   */
+  css?: boolean
+
+  /**
+   * Enable formatting support for HTML.
+   *
+   * Currently only support Prettier.
+   */
+  html?: 'prettier' | boolean
+
+  /**
+   * Enable formatting support for XML.
+   *
+   * Currently only support Prettier.
+   */
+  xml?: 'prettier' | boolean
+
+  /**
+  * Enable formatting support for SVG.
+  *
+  * Currently only support Prettier.
+  */
+  svg?: 'prettier' | boolean
+
+  markdown?: 'prettier' | boolean
+
+  /**
+   * Enable formatting support for GraphQL.
+   */
+  graphql?: 'prettier' | boolean
+
+  /**
+   * Custom options for Prettier.
+   *
+   * By default it's controlled by our own config.
+   */
+  prettierOptions?: VendoredPrettierOptions
 }
 
 export interface OptionsConfig extends OptionsComponentExts {
@@ -31,9 +81,9 @@ export interface OptionsConfig extends OptionsComponentExts {
   typescript?: boolean
 
   /**
- * Control to disable some rules in editors.
- * @default auto-detect based on the process.env
- */
+   * Control to disable some rules in editors.
+   * @default auto-detect based on the process.env
+   */
   isInEditor?: boolean
 
   /**
@@ -41,6 +91,16 @@ export interface OptionsConfig extends OptionsComponentExts {
    *
    * @deprecated use `overrides` option in each integration key instead
    */
+
+  /**
+   * Use external formatters to format files.
+   *
+   * When set to `true`, it will enable all formatters.
+   *
+   * @default false
+   */
+  formatters?: boolean | OptionsFormatters
+
   overrides?: {
     stylistic?: TypedFlatConfigItem['rules']
     javascript?: TypedFlatConfigItem['rules']

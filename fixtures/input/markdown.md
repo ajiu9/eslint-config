@@ -1,3 +1,5 @@
+Header
+======
 
 _Look,_ code blocks are formatted *too!*
 

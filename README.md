@@ -2,20 +2,16 @@
 
 [![npm](https://img.shields.io/npm/v/@ajiu9/eslint-config?color=a1b858&label=)](https://npmjs.com/package/@ajiu9/eslint-config)
 
-
-- Single quotes, no semi
-- [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
-- Designed to work with TypeScript, Vue out-of-box
-- Lint also for json, yaml, markdown
+- Reasonable defaults, best practices, only one line of config
+- [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
+- Designed to work with TypeScript, Markdown
 - Sorted imports, dangling commas
-- Reasonable defaults, best practices, only one-line of config
 - **Style principle**: Minimal for reading, stable for diff
-- Respects .gitignore by default
+- Respects `.gitignore` by default
 - Requires ESLint v9.5.0+-
 
 #Usage
-
 
 ```bash
 pnpm add -D eslint @ajiu9/eslint-config
@@ -45,7 +41,6 @@ For example:
 ```
 
 ### VS Code support (auto fix)
-
 
 ### VS Code support (auto fix)
 
@@ -94,7 +89,6 @@ module.exports = {
 }
 ```
 
-
 ### Lint Staged
 
 If you want to apply lint and auto-fix before every commit, you can add the following to your `package.json`:
@@ -117,7 +111,6 @@ npm i -D lint-staged simple-git-hooks
 ```
 
 ## Customization
-
 
 Normally you only need to import the `ajiu9` preset:
 

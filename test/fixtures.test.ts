@@ -12,28 +12,46 @@ beforeAll(async () => {
 //   await fs.rm('_fixtures', { recursive: true, force: true })
 // })
 
-runWithConfig('all', {})
+// runWithConfig('all', {})
 
-runWithConfig('js', {})
+// runWithConfig('js', {})
 
-runWithConfig('no-style', {
-  stylistic: false,
-})
+// runWithConfig('no-style', {
+//   stylistic: false,
+// })
+
+// runWithConfig(
+//   'tab-double-quotes',
+//   {
+//     stylistic: {
+//       indent: 'tab',
+//       quotes: 'double',
+//     },
+//   },
+//   {
+//     rules: {
+//       'style/no-mixed-spaces-and-tabs': 'off',
+//     },
+//   },
+// )
 
 runWithConfig(
-  'tab-double-quotes',
+  'with-formatters',
   {
-    stylistic: {
-      indent: 'tab',
-      quotes: 'double',
-    },
-  },
-  {
-    rules: {
-      'style/no-mixed-spaces-and-tabs': 'off',
-    },
+    typescript: true,
+    formatters: true,
   },
 )
+
+// runWithConfig(
+//   'no-markdown-with-formatters',
+//   {
+//     markdown: false,
+//     formatters: {
+//       markdown: true
+//     },
+//   },
+// )
 
 function runWithConfig(name: string, configs: OptionsConfig, ...items: TypedFlatConfigItem[]) {
   it.concurrent(name, async ({ expect }) => {

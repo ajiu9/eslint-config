@@ -4,7 +4,7 @@ import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import { isInEditorEnv } from './utils'
 import { isPackageExists } from 'local-pkg'
 
-import { comments, javascript, ignores, imports, node, stylistic, typescript, markdown } from './configs'
+import { comments, javascript, ignores, imports, node, stylistic, typescript, markdown, formatters } from './configs'
 
 export const defaultPluginRenaming = {
   // '@eslint-react': 'react',
@@ -77,6 +77,13 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       componentExts,
       overrides: getOverrides(options, 'markdown'),
     }))
+  }
+
+  if (options.formatters) {
+    configs.push(formatters(
+      options.formatters,
+      typeof stylisticOptions === 'boolean' ? {} : stylisticOptions,
+    ))
   }
 
   let composer = new FlatConfigComposer()

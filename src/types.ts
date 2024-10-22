@@ -113,6 +113,13 @@ export interface OptionsConfig extends OptionsComponentExts {
    * For formatting Markdown content, enable also `formatters.markdown
    */
   markdown?: boolean | OptionsOverrides
+
+   /**
+   * Enable JSONC support.
+   *
+   * @default true
+   */
+  jsonc?: boolean | OptionsOverrides
 }
 
 export interface OptionsStylistic {

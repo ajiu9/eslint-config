@@ -45,7 +45,7 @@ export async function stylistic(
       },
       rules: {
         ...config.rules,
-        curly: ['error', 'all'],
+        curly: ['error', 'multi-or-nest'],
         ...overrides,
       },
     },

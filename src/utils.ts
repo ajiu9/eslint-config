@@ -30,12 +30,12 @@ export const parserPlain = {
 }
 
 export function isInEditorEnv(): boolean {
-  if (process.env.CI) {
+  if (process.env.CI)
     return false
-  }
-  if (isInGitHooksOrLintStaged()) {
+
+  if (isInGitHooksOrLintStaged())
     return false
-  }
+
   return !!(false
     || process.env.VSCODE_PID
     || process.env.VSCODE_CWD
@@ -50,10 +50,10 @@ export function isPackageInScope(name: string): boolean {
 }
 
 export async function ensurePackages(packages: (string | undefined)[]): Promise<void> {
-  if (process.env.CI || process.stdout.isTTY === false || isCwdInScope === false) { return }
+  if (process.env.CI || process.stdout.isTTY === false || isCwdInScope === false) return
 
   const nonExistingPackages = packages.filter(i => i && !isPackageInScope(i)) as string[]
-  if (nonExistingPackages.length === 0) { return }
+  if (nonExistingPackages.length === 0) return
 
   const p = await import('@clack/prompts')
   const result = await p.confirm({
@@ -87,10 +87,10 @@ export function renameRules(
     Object.entries(rules)
       .map(([key, value]) => {
         for (const [from, to] of Object.entries(map)) {
-          if (key.startsWith(`${from}/`)) {
+          if (key.startsWith(`${from}/`))
             return [to + key.slice(from.length), value]
-          }
         }
+
         return [key, value]
       }),
   )

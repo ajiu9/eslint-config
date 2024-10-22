@@ -4,7 +4,8 @@ import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import { isInEditorEnv } from './utils'
 import { isPackageExists } from 'local-pkg'
 
-import { comments, javascript, ignores, imports, node, stylistic, typescript, markdown, formatters, jsonc } from './configs'
+import { comments, javascript, ignores, imports, node, stylistic, typescript, markdown, formatters, jsonc, jsdoc, sortPackageJson,
+  sortTsconfig } from './configs'
 
 export const defaultPluginRenaming = {
   // '@eslint-react': 'react',
@@ -42,9 +43,8 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       ? options.stylistic
       : {}
 
-  if (stylisticOptions && !('jsx' in stylisticOptions)) {
+  if (stylisticOptions && !('jsx' in stylisticOptions))
     stylisticOptions.jsx = enableJsx
-  }
 
   const configs: Awaitable<TypedFlatConfigItem[]>[] = []
 
@@ -57,6 +57,9 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
     node(),
     javascript({ isInEditor }),
     imports({ stylistic: stylisticOptions }),
+    jsdoc({
+      stylistic: stylisticOptions,
+    }),
   )
 
   if (enableTypeScript) {
@@ -92,6 +95,8 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
         overrides: getOverrides(options, 'jsonc'),
         stylistic: stylisticOptions,
       }),
+      sortPackageJson(),
+      sortTsconfig(),
     )
   }
 

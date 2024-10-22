@@ -1,7 +1,7 @@
 {
   "name": "@ajiu9/eslint-config",
   "type": "module",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "ajiu9's Eslint config",
   "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",
@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "dev": "npx @eslint/config-inspector --config eslint.config.ts",
-    "lint": "eslint --flag unstable_ts_config .",
+    "lint": "eslint --flag unstable_ts_config . --fix",
     "build": "tsup --format esm,cjs --clean --dts",
     "watch": "tsup --format esm,cjs --watch",
     "release": "bumpp -r && pnpm -r publish --access public",
@@ -36,11 +36,12 @@
     "@prettier/plugin-xml": "^3.4.1",
     "@types/fs-extra": "^11.0.4",
     "bumpp": "^9.1.1",
-    "eslint": "^9.11.1",
+    "eslint": "^9.13.0",
     "eslint-plugin-ajiu9": "link:./packages/eslint-plugin-ajiu9",
     "eslint-plugin-format": "^0.1.2",
     "execa": "^9.4.0",
     "fs-extra": "^11.2.0",
+    "jiti": "^2.3.3",
     "rimraf": "^5.0.1",
     "simple-git-hooks": "^2.11.1",
     "tsup": "^8.3.0",
@@ -68,10 +69,11 @@
     "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^15.11.0",
     "jsonc-eslint-parser": "^2.4.0",
-              "local-pkg": "^0.5.0"
+    "local-pkg": "^0.5.0"
   },
   "peerDependencies": {
     "@prettier/plugin-xml": "^3.4.1",
+    "eslint": "^9.13.0",
     "eslint-plugin-format": "^0.1.2"
   },
   "peerDependenciesMeta": {

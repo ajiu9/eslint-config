@@ -2,11 +2,9 @@ import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigI
 import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs'
 import { interopDefault } from '../utils'
 
-
-
 export async function jsonc(
   options: OptionsFiles & OptionsStylistic & OptionsOverrides = {},
-): Promise<TypedFlatConfigItem[]>{
+): Promise<TypedFlatConfigItem[]> {
   const {
     files = [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
     overrides = {},
@@ -24,7 +22,7 @@ export async function jsonc(
     interopDefault(import('eslint-plugin-jsonc')),
     interopDefault(import('jsonc-eslint-parser')),
   ] as const)
-  
+
   return [
     {
       name: 'ajiu9/jsonc/setup',

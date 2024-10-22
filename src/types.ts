@@ -114,7 +114,7 @@ export interface OptionsConfig extends OptionsComponentExts {
    */
   markdown?: boolean | OptionsOverrides
 
-   /**
+  /**
    * Enable JSONC support.
    *
    * @default true

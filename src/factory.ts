@@ -5,7 +5,7 @@ import { isInEditorEnv } from './utils'
 import { isPackageExists } from 'local-pkg'
 
 import { comments, javascript, ignores, imports, node, stylistic, typescript, markdown, formatters, jsonc, jsdoc, sortPackageJson,
-  sortTsconfig } from './configs'
+  sortTsconfig, vue } from './configs'
 
 export const defaultPluginRenaming = {
   // '@eslint-react': 'react',
@@ -20,12 +20,21 @@ export const defaultPluginRenaming = {
   // 'vitest': 'test',
   // 'yml': 'yaml',
 }
+
+const VuePackages = [
+  'vue',
+  'nuxt',
+  'vitepress',
+  '@slidev/cli',
+]
+
 export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]) {
   const {
     jsx: enableJsx = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
     componentExts = [],
+    vue: enableVue = VuePackages.some(i => isPackageExists(i)),
   } = options
 
   let isInEditor = options.isInEditor
@@ -61,6 +70,10 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       stylistic: stylisticOptions,
     }),
   )
+  
+  if (enableVue) {
+    componentExts.push('vue')
+  }
 
   if (enableTypeScript) {
     configs.push(typescript({
@@ -72,6 +85,15 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
   if (stylisticOptions) {
     configs.push(stylistic({
       ...stylisticOptions,
+    }))
+  }
+  
+  if (enableVue) {
+    configs.push(vue({
+      ...resolveSubOptions(options, 'vue') as object,
+      overrides: getOverrides(options, 'vue'),
+      stylistic: stylisticOptions,
+      typescript: !!enableTypeScript,
     }))
   }
 
@@ -111,8 +133,13 @@ export type ResolvedOptions<T> = T extends boolean
   ? never
   : NonNullable<T>
 
-export function resolveSubOptions<K extends keyof OptionsConfig>(options: OptionsConfig, key: K): ResolvedOptions<OptionsConfig[K]> {
-  return typeof options[key] === 'boolean' ? {} as any : options[key] || {}
+export function resolveSubOptions<K extends keyof OptionsConfig>(
+  options: OptionsConfig,
+  key: K,
+): ResolvedOptions<OptionsConfig[K]> {
+  return typeof options[key] === 'boolean'
+    ? {} as any
+    : options[key] || {}
 }
 
 export function getOverrides<K extends keyof OptionsConfig>(
@@ -123,7 +150,7 @@ export function getOverrides<K extends keyof OptionsConfig>(
   return {
     ...(options.overrides as any)?.[key],
     ...'overrides' in sub
-      ? (sub.overrides as Record<string, unknown>)
+      ? sub.overrides
       : {},
   }
 }

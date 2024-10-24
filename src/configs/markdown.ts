@@ -1,6 +1,7 @@
 import type { TypedFlatConfigItem, OptionsFiles, OptionsOverrides, OptionsComponentExts } from '../types'
 
-import { interopDefault, mergeProcessors, processorPassThrough, parserPlain } from '../utils'
+import { interopDefault, mergeProcessors, parserPlain } from '../utils'
+import { processorPassThrough } from '../processors'
 import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from '../globs'
 
 export async function markdown(options: OptionsFiles & OptionsComponentExts & OptionsOverrides): Promise<TypedFlatConfigItem[]> {

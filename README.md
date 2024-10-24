@@ -5,9 +5,10 @@
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
 - Reasonable defaults, best practices, only one line of config
 - [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
-- Designed to work with TypeScript, Markdown
-- Sorted imports, dangling commas
-- **Style principle**: Minimal for reading, stable for diff
+- Designed to work with TypeScript, Markdown, Vue, etc.
+- **Style principle**: Minimal for reading, stable for diff, consistent
+  - Sorted imports, dangling commas
+  - Single quotes, no semi
 - Respects `.gitignore` by default
 - Requires ESLint v9.5.0+-
 
@@ -176,4 +177,71 @@ export default ajiu9(
     rules: {},
   },
 )
+```
+
+### Vue
+
+Vue support is detected automatically by checking if `vue` is installed in your project. You can also explicitly enable/disable it:
+
+```js
+// eslint.config.js
+import ajiu9 from '@ajiu9/eslint-config'
+
+export default ajiu9({
+  vue: true
+})
+```
+
+#### Vue 2
+
+We have limited support for Vue 2 (as it's already [reached EOL](https://v2.vuejs.org/eol/)). If you are still using Vue 2, you can configure it manually by setting `vueVersion` to `2`:
+
+```js
+// eslint.config.js
+import ajiu9 from '@ajiu9/eslint-config'
+
+export default ajiu9({
+  vue: {
+    vueVersion: 2
+  },
+})
+```
+
+As it's in maintenance mode, we only accept bug fixes for Vue 2. It might also be removed in the future when `eslint-plugin-vue` drops support for Vue 2. We recommend upgrading to Vue 3 if possible.
+
+
+#### Formatters
+
+Use external formatters to format files that ESLint cannot handle yet (`.css`, `.html`, etc). Powered by [`eslint-plugin-format`](https://github.com/ajiu9/eslint-plugin-format).
+
+```js
+// eslint.config.js
+import ajiu9 from '@ajiu9/eslint-config'
+
+export default ajiu9({
+  formatters: {
+    /**
+     * Format CSS, LESS, SCSS files, also the `<style>` blocks in Vue
+     * By default uses Prettier
+     */
+    css: true,
+    /**
+     * Format HTML files
+     * By default uses Prettier
+     */
+    html: true,
+    /**
+     * Format Markdown files
+     * Supports Prettier and dprint
+     * By default uses Prettier
+     */
+    markdown: 'prettier'
+  }
+})
+```
+
+Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+
+```bash
+npm i -D eslint-plugin-format
 ```

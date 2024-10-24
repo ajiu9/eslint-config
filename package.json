@@ -32,6 +32,7 @@
   },
   "peerDependencies": {
     "@prettier/plugin-xml": "^3.4.1",
+    "@vue/compiler-sfc": "^3.5.12",
     "eslint": "^9.13.0",
     "eslint-plugin-format": "^0.1.2"
   },
@@ -54,15 +55,18 @@
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-n": "^17.11.1",
     "eslint-plugin-unused-imports": "^4.1.4",
+    "eslint-plugin-vue": "^9.29.1",
     "globals": "^15.11.0",
     "jsonc-eslint-parser": "^2.4.0",
-    "local-pkg": "^0.5.0"
+    "local-pkg": "^0.5.0",
+    "vue-eslint-parser": "^9.4.3"
   },
   "devDependencies": {
     "@ajiu9/eslint-config": "workspace:*",
     "@eslint/config-inspector": "^0.5.4",
     "@prettier/plugin-xml": "^3.4.1",
     "@types/fs-extra": "^11.0.4",
+    "@vue/compiler-sfc": "^3.5.12",
     "bumpp": "^9.1.1",
     "eslint": "^9.13.0",
     "eslint-plugin-ajiu9": "link:./packages/eslint-plugin-ajiu9",

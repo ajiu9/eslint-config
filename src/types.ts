@@ -59,6 +59,22 @@ export interface OptionsFormatters {
   prettierOptions?: VendoredPrettierOptions
 }
 
+export interface OptionsVue extends OptionsOverrides {
+   /**
+   * Create virtual files for Vue SFC blocks to enable linting.
+   *
+   * @default true
+   */
+   sfcBlocks?: boolean | VueBlocksOptions
+   
+  /**
+   * Vue version. Apply different rules set from `eslint-plugin-vue`.
+   *
+   * @default 3
+   */
+  vueVersion?: 2 | 3
+}
+
 export interface OptionsConfig extends OptionsComponentExts {
   gitignore?: boolean | FlatGitignoreOptions
   stylistic?: boolean | StylisticConfig
@@ -120,6 +136,13 @@ export interface OptionsConfig extends OptionsComponentExts {
    * @default true
    */
   jsonc?: boolean | OptionsOverrides
+
+  /**
+   * Enable Vue support.
+   * 
+   * @default auto-detect based on the dependencies
+   */
+  vue?: boolean
 }
 
 export interface OptionsStylistic {
@@ -132,6 +155,10 @@ export interface StylisticConfig
 
 export interface OptionsIsInEditor {
   isInEditor?: boolean
+}
+
+export interface OptionsHasTypeScript {
+  typescript?: boolean
 }
 
 export interface OptionsOverrides {
@@ -194,4 +221,44 @@ export interface OptionsProjectType {
    * @default 'app'
    */
   type?: 'app' | 'lib'
+}
+
+export interface VueBlocksOptions {
+  blocks?: {
+    /**
+     * Create virtual files for each `<style>` block
+     * @default false
+     */
+    styles?: boolean
+    /**
+     * Enable custom blocks
+     * Pass an string array to specify custom block types, or `true` to enable all custom blocks
+     * @default false
+     */
+    customBlocks?: boolean | string[]
+    /**
+     * Create virtual files for each `<template>` block
+     * Generally not recommended, as `eslint-plugin-vue` handles it
+     * @default false
+     */
+    template?: boolean
+    /**
+     * Create virtual files for each `<script>` block
+     * Generally not recommended, as `eslint-plugin-vue` handles it
+     * @default false
+     */
+    script?: boolean
+    /**
+     * Create virtual files for each `<script setup>` block
+     * Generally not recommended, as `eslint-plugin-vue` handles it
+     * @default false
+     */
+    scriptSetup?: boolean
+  }
+  /**
+   * Default language for each block type
+   *
+   * @example { style: 'postcss', i18n: 'json' }
+   */
+  defaultLanguage?: Record<string, string>
 }

@@ -5,7 +5,8 @@ import { isInEditorEnv } from './utils'
 import { isPackageExists } from 'local-pkg'
 
 import { comments, javascript, ignores, imports, node, stylistic, typescript, markdown, formatters, jsonc, jsdoc, sortPackageJson,
-  sortTsconfig, vue } from './configs'
+  sortTsconfig, vue,
+  yaml } from './configs'
 
 export const defaultPluginRenaming = {
   // '@eslint-react': 'react',
@@ -18,7 +19,7 @@ export const defaultPluginRenaming = {
   'import-x': 'import',
   'n': 'node',
   // 'vitest': 'test',
-  // 'yml': 'yaml',
+  'yml': 'yaml',
 }
 
 const VuePackages = [
@@ -70,10 +71,9 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       stylistic: stylisticOptions,
     }),
   )
-  
-  if (enableVue) {
+
+  if (enableVue)
     componentExts.push('vue')
-  }
 
   if (enableTypeScript) {
     configs.push(typescript({
@@ -87,7 +87,7 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       ...stylisticOptions,
     }))
   }
-  
+
   if (enableVue) {
     configs.push(vue({
       ...resolveSubOptions(options, 'vue') as object,
@@ -120,6 +120,13 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       sortPackageJson(),
       sortTsconfig(),
     )
+  }
+
+  if (options.yaml ?? true) {
+    configs.push(yaml({
+      overrides: getOverrides(options, 'yaml'),
+      stylistic: stylisticOptions,
+    }))
   }
 
   let composer = new FlatConfigComposer()

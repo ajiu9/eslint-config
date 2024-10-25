@@ -5,7 +5,7 @@
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
 - Reasonable defaults, best practices, only one line of config
 - [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
-- Designed to work with TypeScript, Markdown, Vue, etc.
+- Designed to work with TypeScript, Markdown, Vue, YAML, etc.
 - **Style principle**: Minimal for reading, stable for diff, consistent
   - Sorted imports, dangling commas
   - Single quotes, no semi
@@ -148,6 +148,10 @@ export default ajiu9({
   typescript: true,
   vue: true,
 
+  // Disable jsonc and yaml support
+  jsonc: false,
+  yaml: false,
+
   // `.eslintignore` is no longer supported in Flat config, use `ignores` instead
   ignores: [
     '**/fixtures',
@@ -209,7 +213,6 @@ export default ajiu9({
 
 As it's in maintenance mode, we only accept bug fixes for Vue 2. It might also be removed in the future when `eslint-plugin-vue` drops support for Vue 2. We recommend upgrading to Vue 3 if possible.
 
-
 #### Formatters
 
 Use external formatters to format files that ESLint cannot handle yet (`.css`, `.html`, etc). Powered by [`eslint-plugin-format`](https://github.com/ajiu9/eslint-plugin-format).
@@ -244,4 +247,58 @@ Running `npx eslint` should prompt you to install the required dependencies, oth
 
 ```bash
 npm i -D eslint-plugin-format
+```
+
+### Rules Overrides
+
+Certain rules would only be enabled in specific files, for example, `ts/*` rules would only be enabled in `.ts` files and `vue/*` rules would only be enabled in `.vue` files. If you want to override the rules, you need to specify the file extension:
+
+```js
+// eslint.config.js
+import ajiu9 from '@ajiu9/eslint-config'
+
+export default ajiu9(
+  {
+    vue: true,
+    typescript: true
+  },
+  {
+    // Remember to specify the file glob here, otherwise it might cause the vue plugin to handle non-vue files
+    files: ['**/*.vue'],
+    rules: {
+      'vue/operator-linebreak': ['error', 'before'],
+    },
+  },
+  {
+    // Without `files`, they are general rules for all files
+    rules: {
+      'style/semi': ['error', 'never'],
+    },
+  }
+)
+```
+
+We also provided the `overrides` options in each integration to make it easier:
+
+```js
+// eslint.config.js
+import ajiu9 from '@ajiu9/eslint-config'
+
+export default ajiu9({
+  vue: {
+    overrides: {
+      'vue/operator-linebreak': ['error', 'before'],
+    },
+  },
+  typescript: {
+    overrides: {
+      'ts/consistent-type-definitions': ['error', 'interface'],
+    },
+  },
+  yaml: {
+    overrides: {
+      // ...
+    },
+  },
+})
 ```

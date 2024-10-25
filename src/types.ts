@@ -60,13 +60,13 @@ export interface OptionsFormatters {
 }
 
 export interface OptionsVue extends OptionsOverrides {
-   /**
+  /**
    * Create virtual files for Vue SFC blocks to enable linting.
    *
    * @default true
    */
-   sfcBlocks?: boolean | VueBlocksOptions
-   
+  sfcBlocks?: boolean | VueBlocksOptions
+
   /**
    * Vue version. Apply different rules set from `eslint-plugin-vue`.
    *
@@ -139,10 +139,17 @@ export interface OptionsConfig extends OptionsComponentExts {
 
   /**
    * Enable Vue support.
-   * 
+   *
    * @default auto-detect based on the dependencies
    */
-  vue?: boolean
+  vue?: boolean | OptionsVue
+
+  /**
+   * Enable YAML support.
+   *
+   * @default true
+   */
+  yaml: boolean | OptionsOverrides
 }
 
 export interface OptionsStylistic {

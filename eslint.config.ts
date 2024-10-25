@@ -20,6 +20,11 @@ export default ajiu9({
     '_fixtures',
     'packages',
   ],
+}, {
+  files: ['src/**/*.ts'],
+  rules: {
+    'perfectionist/sort-objects': 'error',
+  },
 })
 
 // const configs = await ajiu9({})

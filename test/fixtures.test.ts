@@ -1,9 +1,9 @@
 import type { OptionsConfig, TypedFlatConfigItem } from '../src/types'
 
-import { beforeAll, it } from 'vitest'
-import fs from 'fs-extra'
 import { join, resolve } from 'node:path'
 import { execa } from 'execa'
+import fs from 'fs-extra'
+import { beforeAll, it } from 'vitest'
 
 beforeAll(async () => {
   await fs.rm('_fixtures', { recursive: true, force: true })
@@ -14,7 +14,7 @@ beforeAll(async () => {
 
 runWithConfig('all', {
   vue: true,
-  typescript: true
+  typescript: true,
 })
 
 runWithConfig('js', {
@@ -58,7 +58,7 @@ runWithConfig(
     markdown: false,
     vue: false,
     formatters: {
-      markdown: true
+      markdown: true,
     },
   },
 )

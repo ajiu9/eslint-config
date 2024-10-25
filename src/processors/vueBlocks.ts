@@ -1,7 +1,7 @@
-import type { Linter } from 'eslint'
 import type { SFCBlock } from '@vue/compiler-sfc'
+import type { Linter } from 'eslint'
+import type { VueBlocksOptions } from '../types'
 import { parse } from '@vue/compiler-sfc'
-import { VueBlocksOptions } from '../types'
 
 interface Block extends Linter.ProcessorFile {
   wrapper: TextWrapper
@@ -30,8 +30,8 @@ class TextWrapper {
       line++
     }
     return {
-      line: line + 1,
       column: index,
+      line: line + 1,
     }
   }
 
@@ -47,7 +47,39 @@ export function processorVueBlocks(options: VueBlocksOptions = {}): Linter.Proce
     meta: {
       name: 'vue-blocks',
     },
-    supportsAutofix: true,
+    postprocess(messages, filename) {
+      const blocks = cache.get(filename)!
+      cache.delete(filename)
+
+      return messages.flatMap((blockMessages, index) => {
+        const block = blocks[index]
+
+        const startOffset = block.startOffset
+        const localLineColumn = new TextWrapper(block.text)
+
+        function rewriteMessage(message: Linter.LintMessage): Linter.LintMessage {
+          const start = block.wrapper.getLineColumn(
+            startOffset + localLineColumn.getIndex(message.line, message.column),
+          )
+          const end = block.wrapper.getLineColumn(
+            startOffset + localLineColumn.getIndex(message.endLine!, message.endColumn!),
+          )
+          return {
+            ...message,
+            column: start.column,
+            endColumn: end.column,
+            endLine: end.line,
+            fix: message.fix && {
+              ...message.fix,
+              range: message.fix.range.map(i => i + startOffset - 1),
+            } as typeof message.fix,
+            line: start.line,
+          }
+        }
+
+        return blockMessages.map(message => rewriteMessage(message))
+      })
+    },
     preprocess(text, filename) {
       const { descriptor } = parse(text, {
         filename,
@@ -55,10 +87,10 @@ export function processorVueBlocks(options: VueBlocksOptions = {}): Linter.Proce
       })
 
       const defaultLanguage: Record<string, string> = {
+        i18n: 'json',
+        script: 'js',
         style: 'css',
         template: 'html',
-        script: 'js',
-        i18n: 'json',
         ...options.defaultLanguage,
       }
 
@@ -75,10 +107,10 @@ export function processorVueBlocks(options: VueBlocksOptions = {}): Linter.Proce
           return ''
         })
         blocks.push({
-          text: content,
           filename: `${block.type}.${lang}`,
-          wrapper,
           startOffset,
+          text: content,
+          wrapper,
         })
       }
 
@@ -101,39 +133,6 @@ export function processorVueBlocks(options: VueBlocksOptions = {}): Linter.Proce
       cache.set(filename, blocks)
       return blocks
     },
-    postprocess(messages, filename) {
-      const blocks = cache.get(filename)!
-      cache.delete(filename)
-
-      return messages.flatMap((blockMessages, index) => {
-        const block = blocks[index]
-
-        const startOffset = block.startOffset
-        const localLineColumn = new TextWrapper(block.text)
-
-        function rewriteMessage(message: Linter.LintMessage): Linter.LintMessage {
-          const start = block.wrapper.getLineColumn(
-            startOffset + localLineColumn.getIndex(message.line, message.column),
-          )
-          const end = block.wrapper.getLineColumn(
-            startOffset + localLineColumn.getIndex(message.endLine!, message.endColumn!),
-          )
-          return {
-            ...message,
-            line: start.line,
-            column: start.column,
-            endLine: end.line,
-            endColumn: end.column,
-            fix: message.fix && {
-              ...message.fix,
-              range: message.fix.range.map(i => i + startOffset - 1),
-            } as typeof message.fix,
-          }
-        }
-
-        return blockMessages.map(message => rewriteMessage(message))
-      })
-    },
+    supportsAutofix: true,
   }
 }
-

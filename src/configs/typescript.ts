@@ -1,8 +1,8 @@
-import type { TypedFlatConfigItem, OptionsFiles, OptionsOverrides, OptionsComponentExts, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, OptionsProjectType } from '../types'
+import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsProjectType, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from '../types'
 
+import process from 'node:process'
 import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from '../globs'
 import { interopDefault, renameRules } from '../utils'
-import process from 'node:process'
 
 export async function typescript(options: OptionsFiles & OptionsOverrides & OptionsComponentExts & OptionsTypeScriptParserOptions & OptionsTypeScriptWithTypes & OptionsProjectType = {}): Promise<TypedFlatConfigItem[]> {
   const {

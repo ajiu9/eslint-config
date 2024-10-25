@@ -8,10 +8,10 @@ import type {
 } from '../types'
 
 import { GLOB_VUE } from '../globs'
-import { interopDefault, mergeProcessors } from '../utils'
 import { processorVueBlocks } from '../processors'
+import { interopDefault, mergeProcessors } from '../utils'
 
-export async function vue(options:  OptionsVue & OptionsHasTypeScript & OptionsOverrides & OptionsStylistic & OptionsFiles = {},): Promise<TypedFlatConfigItem[]> {
+export async function vue(options: OptionsVue & OptionsHasTypeScript & OptionsOverrides & OptionsStylistic & OptionsFiles = {}): Promise<TypedFlatConfigItem[]> {
   const {
     files = [GLOB_VUE],
     overrides = {},
@@ -24,9 +24,9 @@ export async function vue(options:  OptionsVue & OptionsHasTypeScript & OptionsO
   } = typeof stylistic === 'boolean' ? {} : stylistic
 
   const sfcBlocks = options.sfcBlocks === true
-  ? {}
-  : options.sfcBlocks ?? {}
-  
+    ? {}
+    : options.sfcBlocks ?? {}
+
   const [
     pluginVue,
     parserVue,
@@ -34,7 +34,7 @@ export async function vue(options:  OptionsVue & OptionsHasTypeScript & OptionsO
     interopDefault(import('eslint-plugin-vue')),
     interopDefault(import('vue-eslint-parser')),
   ] as const)
-  
+
   return [
     {
       // This allows Vue plugin to work with auto imports
@@ -79,17 +79,17 @@ export async function vue(options:  OptionsVue & OptionsHasTypeScript & OptionsO
       },
       name: 'ajiu9/vue/rules',
       processor: sfcBlocks === false
-      ? pluginVue.processors['.vue']
-      : mergeProcessors([
-        pluginVue.processors['.vue'],
-        processorVueBlocks({
-          ...sfcBlocks,
-          blocks: {
-            styles: true,
-            ...sfcBlocks.blocks,
-          },
-        }),
-      ]),
+        ? pluginVue.processors['.vue']
+        : mergeProcessors([
+          pluginVue.processors['.vue'],
+          processorVueBlocks({
+            ...sfcBlocks,
+            blocks: {
+              styles: true,
+              ...sfcBlocks.blocks,
+            },
+          }),
+        ]),
       rules: {
         ...pluginVue.configs.base.rules as any,
 

@@ -1,5 +1,5 @@
-import globals from 'globals'
 import type { OptionsIsInEditor } from '../types'
+import globals from 'globals'
 import { pluginUnusedImports } from '../plugins'
 
 export function javascript(options: OptionsIsInEditor): any {
@@ -43,8 +43,8 @@ export function javascript(options: OptionsIsInEditor): any {
         'default-case-last': 'error',
         'dot-notation': ['error', { allowKeywords: true }],
         'eqeqeq': ['error', 'smart'],
-
         'new-cap': ['error', { capIsNew: false, newIsCap: true, properties: true }],
+
         'no-alert': 'error',
         'no-array-constructor': 'error',
         'no-async-promise-executor': 'error',
@@ -150,6 +150,7 @@ export function javascript(options: OptionsIsInEditor): any {
         'no-useless-return': 'error',
         'no-var': 'error',
         'no-with': 'error',
+        'object-curly-newline': ['error', { consistent: true, multiline: true }],
         'object-shorthand': [
           'error',
           'always',

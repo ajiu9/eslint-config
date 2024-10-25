@@ -1,12 +1,27 @@
-import type { OptionsConfig, TypedFlatConfigItem, Awaitable } from './types'
 import type { Linter } from 'eslint'
+import type { Awaitable, OptionsConfig, TypedFlatConfigItem } from './types'
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
-import { isInEditorEnv } from './utils'
 import { isPackageExists } from 'local-pkg'
+import {
+  comments,
+  formatters,
+  ignores,
+  imports,
+  javascript,
+  jsdoc,
+  jsonc,
+  markdown, 
+  node,
+  perfectionist,
+  sortPackageJson,
+  sortTsconfig,
+  stylistic,
+  typescript,
+  vue,
+  yaml,
+} from './configs'
 
-import { comments, javascript, ignores, imports, node, stylistic, typescript, markdown, formatters, jsonc, jsdoc, sortPackageJson,
-  sortTsconfig, vue,
-  yaml } from './configs'
+import { isInEditorEnv } from './utils'
 
 export const defaultPluginRenaming = {
   // '@eslint-react': 'react',
@@ -32,9 +47,9 @@ const VuePackages = [
 export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]) {
   const {
+    componentExts = [],
     jsx: enableJsx = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
-    componentExts = [],
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
   } = options
 
@@ -70,6 +85,8 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
     jsdoc({
       stylistic: stylisticOptions,
     }),
+    // Optional plugins (installed but not enabled by default)
+    perfectionist(),
   )
 
   if (enableVue)

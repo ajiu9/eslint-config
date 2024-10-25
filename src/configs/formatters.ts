@@ -1,8 +1,8 @@
 import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '../types'
-import { isPackageInScope, parserPlain, interopDefault, ensurePackages } from '../utils'
-import { StylisticConfigDefaults } from './stylistic'
 import type { VendoredPrettierOptions, VendoredPrettierRuleOptions } from '../vender/prettier-types'
-import { GLOB_MARKDOWN, GLOB_CSS, GLOB_POSTCSS, GLOB_SCSS, GLOB_LESS, GLOB_HTML, GLOB_XML, GLOB_SVG, GLOB_GRAPHQL } from '../globs'
+import { GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from '../globs'
+import { ensurePackages, interopDefault, isPackageInScope, parserPlain } from '../utils'
+import { StylisticConfigDefaults } from './stylistic'
 
 function mergePrettierOptions(
   options: VendoredPrettierOptions,

@@ -1,8 +1,8 @@
+import type { Linter } from 'eslint'
 import type { Awaitable } from './types'
 import process from 'node:process'
-import type { Linter } from 'eslint'
-import { isPackageExists } from 'local-pkg'
 import { fileURLToPath } from 'node:url'
+import { isPackageExists } from 'local-pkg'
 
 const isCwdInScope = isPackageExists('@ajiu9/eslint-config')
 
@@ -121,16 +121,6 @@ export function mergeProcessors(processors: Linter.Processor[]): Linter.Processo
     meta: {
       name: `merged-processor:${processors.map(processor => processor.meta?.name || 'unknown').join('+')}`,
     },
-    supportsAutofix: true,
-    preprocess(text, filename) {
-      const counts: number[] = []
-      cache.set(filename, counts)
-      return processors.flatMap((processor) => {
-        const result = processor.preprocess?.(text, filename) || []
-        counts.push(result.length)
-        return result
-      })
-    },
     postprocess(messages, filename) {
       const counts = cache.get(filename)!
       cache.delete(filename)
@@ -141,7 +131,15 @@ export function mergeProcessors(processors: Linter.Processor[]): Linter.Processo
         return processor.postprocess?.(msgs, filename) || []
       })
     },
+    preprocess(text, filename) {
+      const counts: number[] = []
+      cache.set(filename, counts)
+      return processors.flatMap((processor) => {
+        const result = processor.preprocess?.(text, filename) || []
+        counts.push(result.length)
+        return result
+      })
+    },
+    supportsAutofix: true,
   }
 }
-
-

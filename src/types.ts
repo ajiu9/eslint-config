@@ -121,6 +121,10 @@ export interface OptionsConfig extends OptionsComponentExts {
     stylistic?: TypedFlatConfigItem['rules']
     javascript?: TypedFlatConfigItem['rules']
     typescript?: TypedFlatConfigItem['rules']
+    yaml?: TypedFlatConfigItem['rules']
+    vue?: TypedFlatConfigItem['rules']
+    jsonc?: TypedFlatConfigItem['rules']
+    markdown?: TypedFlatConfigItem['rules']
   }
 
   /**

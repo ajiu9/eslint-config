@@ -153,7 +153,7 @@ export interface OptionsConfig extends OptionsComponentExts {
    *
    * @default true
    */
-  yaml: boolean | OptionsOverrides
+  yaml?: boolean | OptionsOverrides
 }
 
 export interface OptionsStylistic {

@@ -10,7 +10,8 @@ import {
   javascript,
   jsdoc,
   jsonc,
-  markdown, 
+  jsx,
+  markdown,
   node,
   perfectionist,
   sortPackageJson,
@@ -113,6 +114,9 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       typescript: !!enableTypeScript,
     }))
   }
+
+  if (enableJsx)
+    configs.push(jsx())
 
   if (options.markdown ?? true) {
     configs.push(markdown({

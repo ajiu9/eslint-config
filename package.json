@@ -22,11 +22,12 @@
     "dist"
   ],
   "scripts": {
+    "prepublishOnly": "pnpm build",
     "dev": "npx @eslint/config-inspector --config eslint.config.ts",
     "lint": "eslint --flag unstable_ts_config . --fix",
     "build": "tsup --format esm,cjs --clean --dts",
     "watch": "tsup --format esm,cjs --watch",
-    "release": "bumpp -r && pnpm -r publish --access public",
+    "release": "bumpp && pnpm publish",
     "test": "pnpm build && vitest",
     "prepare": "simple-git-hooks"
   },

@@ -1,7 +1,7 @@
 import type { Linter } from 'eslint'
 import type { Awaitable, OptionsConfig, TypedFlatConfigItem } from './types'
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
-import { isPackageExists } from 'local-pkg'
+import { isPackageExists } from 'op-pkg'
 import {
   comments,
   formatters,

@@ -2,7 +2,7 @@ import type { Linter } from 'eslint'
 import type { Awaitable } from './types'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
-import { isPackageExists } from 'local-pkg'
+import { isPackageExists } from 'op-pkg'
 
 const isCwdInScope = isPackageExists('@ajiu9/eslint-config')
 
@@ -59,6 +59,7 @@ export async function ensurePackages(packages: (string | undefined)[]): Promise<
   const result = await p.confirm({
     message: `${nonExistingPackages.length === 1 ? 'Package is' : 'Packages are'} required for this config: ${nonExistingPackages.join(', ')}. Do you want to install them?`,
   })
+  await import('op-pkg').then(i => i.installPackage(nonExistingPackages, { dev: true }))
 }
 
 /**

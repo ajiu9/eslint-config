@@ -4,6 +4,7 @@ export async function taro(): Promise<any[]> {
   const [
     pluginTaro,
   ] = await Promise.all([
+    // @ts-expect-error eslint-config-taro has no types
     interopDefault(import('eslint-config-taro')),
   ] as const)
 

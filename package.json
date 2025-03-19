@@ -1,7 +1,7 @@
 {
   "name": "@ajiu9/eslint-config",
   "type": "module",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "ajiu9's Eslint config",
   "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",

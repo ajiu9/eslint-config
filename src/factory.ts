@@ -17,6 +17,7 @@ import {
   sortPackageJson,
   sortTsconfig,
   stylistic,
+  taro,
   typescript,
   vue,
   yaml,
@@ -50,6 +51,7 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
   const {
     componentExts = [],
     jsx: enableJsx = true,
+    taro: enableTaro = isPackageExists('@tarojs/taro'),
     typescript: enableTypeScript = isPackageExists('typescript'),
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
   } = options
@@ -149,6 +151,9 @@ export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, '
       stylistic: stylisticOptions,
     }))
   }
+
+  if (enableTaro)
+    configs.push(taro())
 
   let composer = new FlatConfigComposer()
 

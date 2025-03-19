@@ -154,6 +154,13 @@ export interface OptionsConfig extends OptionsComponentExts {
    * @default true
    */
   yaml?: boolean | OptionsOverrides
+
+  /**
+   * Enable Taro support.
+   *
+   * @default auto-detect based on the dependencies
+   */
+  taro?: boolean
 }
 
 export interface OptionsStylistic {

@@ -46,8 +46,10 @@ const VuePackages = [
   '@slidev/cli',
 ]
 
-export async function ajiu9(options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},
-  ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]) {
+export async function ajiu9(
+  options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},
+  ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
+): Promise<FlatConfigComposer<any, any>> {
   const {
     componentExts = [],
     jsx: enableJsx = true,
@@ -170,9 +172,9 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
 ): ResolvedOptions<OptionsConfig[K]> {
-  return typeof options[key] === 'boolean'
-    ? {} as any
-    : options[key] || {}
+  return (typeof options[key] === 'boolean'
+    ? {}
+    : options[key] || {}) as ResolvedOptions<OptionsConfig[K]>
 }
 
 export function getOverrides<K extends keyof OptionsConfig>(

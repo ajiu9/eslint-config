@@ -1,5 +1,5 @@
-import type { OptionsIsInEditor } from '../types'
 import globals from 'globals'
+import type { OptionsIsInEditor } from '../types'
 import { pluginUnusedImports } from '../plugins'
 
 export function javascript(options: OptionsIsInEditor): any {

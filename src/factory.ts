@@ -1,7 +1,7 @@
 import type { Linter } from 'eslint'
-import type { Awaitable, OptionsConfig, TypedFlatConfigItem } from './types'
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import { isPackageExists } from 'op-pkg'
+import type { Awaitable, OptionsConfig, TypedFlatConfigItem } from './types'
 import {
   comments,
   formatters,
@@ -22,7 +22,6 @@ import {
   vue,
   yaml,
 } from './configs'
-
 import { isInEditorEnv } from './utils'
 
 export const defaultPluginRenaming = {

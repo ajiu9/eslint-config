@@ -4,12 +4,13 @@
       {{ greeting }}</h1>
     <button @click="incrementCounter">Click me!</button>
     <p>Counter: {{ counter  }}</p>
+    <p>Doubled: {{ doubled }}</p>
   </div>
 </template>
 
 <script setup>
 // Define reactive data and props
-import { ref  } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
 
 const greeting = ref('Hello, Vue 3!' + 1);
 let counter = ref(0)
@@ -19,6 +20,4 @@ let doubled = computed(() => counter.value * 2);
 const incrementCounter = () => {
   counter.value++;
 };
-
-let _zero = doubled + counter
 </script>

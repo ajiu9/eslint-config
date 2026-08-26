@@ -1,8 +1,8 @@
 import type { Linter } from 'eslint'
-import type { Awaitable } from './types'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { isPackageExists } from 'op-pkg'
+import type { Awaitable } from './types'
 
 const isCwdInScope = isPackageExists('@ajiu9/eslint-config')
 

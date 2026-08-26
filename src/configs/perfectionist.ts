@@ -17,18 +17,6 @@ export async function perfectionist(): Promise<TypedFlatConfigItem[]> {
       rules: {
         'perfectionist/sort-exports': ['error', { order: 'asc', type: 'natural' }],
         'perfectionist/sort-imports': ['error', {
-          groups: [
-            'type',
-            ['parent-type', 'sibling-type', 'index-type'],
-
-            'builtin',
-            'external',
-            ['internal', 'internal-type'],
-            ['parent', 'sibling', 'index'],
-            'side-effect',
-            'object',
-            'unknown',
-          ],
           newlinesBetween: 'ignore',
           order: 'asc',
           type: 'natural',
